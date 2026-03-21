@@ -10,4 +10,5 @@ keywords = ["academic", "chinese", "minimal"]
 
 [template]
 path = "template"
+entrypoint = "main.typ"
 test-link = "example/main.typ"
