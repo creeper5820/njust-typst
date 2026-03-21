@@ -1,0 +1,13 @@
+[package]
+name = "njust-homework"
+version = "0.1.0"
+entrypoint = "template/lib.typ"
+authors = ["creeper5820"]
+license = "MIT"
+description = "南京理工大学的大作业模板。"
+categories = ["paper", "report"]
+keywords = ["academic", "chinese", "minimal"]
+
+[template]
+path = "template"
+test-link = "example/main.typ"
