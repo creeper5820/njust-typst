@@ -107,8 +107,8 @@
   title: "",
   student-name: "",
   student-number: "",
-  supervisor: "",
-  supervisor-ext: none,
+  supervisor-1: (),
+  supervisor-2: (),
   department: "",
   major: "",
   research-direction: "",
@@ -141,8 +141,8 @@
     #place(top + left, dx: 8.16mm, dy: 85.46mm)[#cover-title(title)]
 
     // 学生姓名
-    #place(top + left, dx: 70.01mm, dy: 122.03mm)[
-      #box(width: 19.52mm, align(center)[
+    #place(top + left, dx: 0mm, dy: 122.03mm)[
+      #box(width: content-width, align(center)[
         #text(font: fonts.kai, size: size.小二)[#student-name]
       ])
     ]
@@ -174,7 +174,7 @@
       ])
     ]
 
-    // 指导教师（特殊：两根线）
+    // 指导教师（两根线，支持双导师分行居中）
     #place(top + left, dx: 18.51mm, dy: 158.83mm)[
       #set text(font: fonts.song, size: size.四号)
       #cn-fakebold(text[指 导 教 师])
@@ -184,25 +184,27 @@
       #line(length: line-len, stroke: line-stroke)
     ]
 
-    #place(top + left, dx: line-start, dy: 158.83mm)[
-      #box(width: line-len, align(center)[
-        #set text(font: fonts.kai, size: size.四号)
-        #fakebold(supervisor)
-      ])
-    ]
-
     #place(top + left, dx: line-start, dy: 169.65mm + line-offset)[
       #line(length: line-len, stroke: line-stroke)
     ]
 
-    #if supervisor-ext != none [
-      #place(top + left, dx: line-start, dy: 169.65mm)[
-        #box(width: line-len, align(center)[
-          #set text(font: fonts.kai, size: size.四号)
-          #fakebold(supervisor-ext)
-        ])
-      ]
-    ]
+    #let render-supervisor(items, y) = {
+      let n = items.len()
+      let area-len = line-len / n
+      for (i, item) in items.enumerate() {
+        place(top + left, dx: line-start + area-len * i, dy: y)[
+          #box(width: area-len, align(center)[
+            #set text(font: fonts.kai, size: size.四号)
+            #fakebold(item)
+          ])
+        ]
+      }
+    }
+
+    #render-supervisor(supervisor-1, 158.83mm)
+    #if supervisor-2.len() > 0 {
+      render-supervisor(supervisor-2, 169.65mm)
+    }
 
     // 信息栏
     #info-row("学 生 学 院", department, 179.76mm)
