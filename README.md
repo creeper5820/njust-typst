@@ -81,7 +81,7 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 ### 3. 声明
 
 ```typst
-#njust.declare
+#njust.declare()
 ```
 
 ### 4. 摘要
