@@ -86,6 +86,12 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
   supervisor-2: (),
 ```
 
+姓名支持下划线标注（如多音字）：
+
+```typst
+  student-name: "五条" + underline(stroke: 1pt, offset: 2pt)[悟],
+```
+
 ### 3. 声明
 
 ```typst
