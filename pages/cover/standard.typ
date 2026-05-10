@@ -48,7 +48,7 @@
     let current = ()
     let measure-line = line => {
       measure(
-        text(font: (fonts.times, fonts.hei), size: size.小一, weight: "bold")[#line],
+        text(font: (fonts.times, fonts.hei), size: size.小一)[#line],
       ).width
     }
 
@@ -87,8 +87,8 @@
         #place(top + left, dx: 0mm, dy: title-step * i)[
           #box(width: title-box-width)[
             #align(center)[
-              #set text(font: (fonts.times, fonts.hei), size: size.小一, weight: "bold")
-              #title-line
+              #set text(font: (fonts.times, fonts.hei), size: size.小一)
+              #fakebold(title-line)
             ]
           ]
         ]
