@@ -86,6 +86,13 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
   supervisor-2: (),
 ```
 
+单个指导教师需加尾逗号，防止 Typst 格式化去掉括号：
+
+```typst
+  supervisor-1: ("×××",),   // ← 尾逗号
+  supervisor-2: (),
+```
+
 姓名支持下划线标注（如多音字）：
 
 ```typst
