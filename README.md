@@ -70,12 +70,20 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
   title: thesis-title,
   student-name: "姓名",
   student-number: "学号",
-  supervisor: "指导教师",
+  supervisor-1: ("指导教师",),       // 第一行，数组可多项分区域居中
+  supervisor-2: ("校外导师",),       // 第二行（可选）
   department: "学院",
   major: "专业",
   research-direction: "研究方向",
   date: "2026年6月",
 )
+```
+
+双导师分区域示例：
+
+```typst
+  supervisor-1: ("校内导师 教授", "校外导师 ××"),  // 一行分两区域
+  supervisor-2: (),
 ```
 
 ### 3. 声明
