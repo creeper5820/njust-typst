@@ -1,6 +1,18 @@
 #import "../common.typ": content-width, fonts, page-margin, size
 #import "@preview/cuti:0.4.0": cn-fakebold
 
+#let signature-date-dx = 91.5mm
+
+#let signature-row() = box(width: content-width, height: 1em)[
+  #place(top + left, dx: 0mm, dy: 0mm)[
+    学生签名：#box(width: 6em, line(length: 6em))
+  ]
+
+  #place(top + left, dx: signature-date-dx, dy: 0mm)[
+    年　月　日
+  ]
+]
+
 #let declare() = {
   set page(
     paper: "a4",
@@ -25,7 +37,8 @@
 
   v(2em)
 
-  [学生签名：#box(width: 6em, line(length: 6em))　　年　　月　　日]
+  [#set par(first-line-indent: 0em)
+  #signature-row()]
 
   v(2cm)
 
@@ -40,5 +53,6 @@
 
   v(2em)
 
-  [学生签名：#box(width: 6em, line(length: 6em))　　年　　月　　日]
+  [#set par(first-line-indent: 0em)
+  #signature-row()]
 }

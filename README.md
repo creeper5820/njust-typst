@@ -101,13 +101,41 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
   student-name: "五条" + underline(stroke: 1pt, offset: 2pt)[悟],
 ```
 
-### 3. 声明
+### 3. 中文封二
+
+```typst
+#njust.cover-inner-zh(
+  title: thesis-title,
+  student-name: "姓名",
+  supervisor-1: ("导师姓名", "职称"),  // 第一导师（姓名, 职称）
+  supervisor-2: ("校外导师",),         // 第二导师（可选）
+  date: "2026年6月",
+  heading: "学 士 学 位 论 文",         // 可选，默认 "学 士 学 位 论 文"
+)
+```
+
+### 4. 英文封二
+
+```typst
+#njust.cover-inner-en(
+  title: "English Title of the Thesis",
+  student-name: "Student Name",
+  supervisor-1: "Prof. Supervisor Name",   // 含职称
+  supervisor-2: "Co-supervisor Name",      // 可选
+  date: "June, 2026",
+  heading: "Bachelor Dissertation",        // 可选，默认 "Bachelor Dissertation"
+)
+```
+
+标题支持自动折行和 `\n` 手动换行。
+
+### 5. 声明
 
 ```typst
 #njust.declare()
 ```
 
-### 4. 摘要
+### 6. 摘要
 
 ```typst
 // 中文摘要
@@ -127,7 +155,7 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 ]
 ```
 
-### 5. 目录
+### 7. 目录
 
 ```typst
 #njust.contents[
@@ -135,13 +163,13 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 ]
 ```
 
-### 6. 图表目录
+### 8. 图表目录
 
 ```typst
 #njust.charts()
 ```
 
-### 7. 正文
+### 9. 正文
 
 正文使用 `main-body` wrapper，样式自动应用：
 
@@ -163,7 +191,7 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 - 三级标题：小四号宋体加粗
 - 正文：小四号宋体，行距 30px，首行缩进 2em
 
-### 8. 致谢
+### 10. 致谢
 
 ```typst
 #njust.acknowledge[
@@ -171,7 +199,7 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 ]
 ```
 
-### 9. 参考文献
+### 11. 参考文献
 
 ```typst
 #njust.reference[
@@ -179,7 +207,7 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 ]
 ```
 
-### 10. 附录
+### 12. 附录
 
 ```typst
 #njust.appendix[

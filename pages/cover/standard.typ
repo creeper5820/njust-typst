@@ -8,6 +8,9 @@
 #let line-len = content-width - 18.5mm - line-start
 #let line-stroke = 0.5pt
 #let line-offset = 5.7mm
+#let info-start = 158.81mm
+#let info-row-gap = 10.82mm
+#let major-prefix-gap = 23.74mm
 
 // 标题区
 #let title-box-width = 141.57mm
@@ -17,10 +20,20 @@
 // ── 封面专用函数 ──
 
 // 信息栏通用行（head 左对齐，横线，内容居中；指导教师不用此函数）
+#let render-info-head(head) = {
+  if type(head) == str {
+    [
+      #set text(font: fonts.song, size: size.四号)
+      #cn-fakebold(text(head))
+    ]
+  } else {
+    head
+  }
+}
+
 #let info-row(head, value, dy) = {
   place(top + left, dx: 18.51mm, dy: dy)[
-    #set text(font: fonts.song, size: size.四号)
-    #cn-fakebold(text(head))
+    #render-info-head(head)
   ]
 
   place(top + left, dx: line-start, dy: dy + line-offset)[
@@ -29,11 +42,17 @@
 
   place(top + left, dx: line-start, dy: dy)[
     #box(width: line-len, align(center)[
-      #set text(font: fonts.kai, size: size.四号)
-      #fakebold(value)
+      #set text(font: fonts.song, size: size.四号)
+      #cn-fakebold(value)
     ])
   ]
 }
+
+#let major-prefix = box(width: 34mm, height: 7mm)[
+  #set text(font: fonts.song, size: size.四号)
+  #place(top + left, dx: 0mm, dy: 0mm)[#cn-fakebold(text[专])]
+  #place(top + left, dx: major-prefix-gap, dy: 0mm)[#cn-fakebold(text[业])]
+]
 
 // 大标题：按测量宽度自动折行，每行下方画横线
 #let cover-title(title) = context {
@@ -113,6 +132,7 @@
   major: "",
   research-direction: "",
   date: "",
+  heading: "毕业设计（论文）报告",
 ) = {
   set page(
     paper: "a4",
@@ -133,7 +153,7 @@
     // 主标题
     #place(top + left, dx: 19.33mm, dy: 56.53mm)[
       #box(width: 116.17mm, align(center)[
-        #cn-fakebold(text(font: fonts.kai, size: 32pt)[毕业设计（论文）报告])
+        #cn-fakebold(text(font: fonts.kai, size: 32pt)[#heading])
       ])
     ]
 
@@ -141,52 +161,53 @@
     #place(top + left, dx: 8.16mm, dy: 85.46mm)[#cover-title(title)]
 
     // 学生姓名
-    #place(top + left, dx: 0mm, dy: 122.03mm)[
+    #place(top + left, dx: 0mm, dy: 122.13mm)[
       #box(width: content-width, align(center)[
-        #text(font: fonts.kai, size: size.小二)[#student-name]
+        #cn-fakebold(text(font: fonts.kai, size: size.小二)[#student-name])
       ])
     ]
 
-    #place(top + left, dx: short-line-x, dy: 128.3mm)[
+    #place(top + left, dx: short-line-x, dy: 128.4mm)[
       #line(length: short-line-len, stroke: line-stroke)
     ]
 
-    #place(top + left, dx: 67.42mm, dy: 130.23mm)[
+    #place(top + left, dx: 67.42mm, dy: 130.33mm)[
       #box(width: 25.4mm, align(center)[
         #text(font: fonts.song, size: size.小四)[（学生姓名）]
       ])
     ]
 
     // 学号
-    #place(top + left, dx: 70.01mm, dy: 135.43mm)[
+    #place(top + left, dx: 70.01mm, dy: 135.53mm)[
       #box(width: 19.52mm, align(center)[
-        #text(font: fonts.kai, size: size.小二)[#student-number]
+        #fakebold(text(font: fonts.kai, size: size.小二)[#student-number])
       ])
     ]
 
-    #place(top + left, dx: short-line-x, dy: 141.2mm)[
+    #place(top + left, dx: short-line-x, dy: 141.3mm)[
       #line(length: short-line-len, stroke: line-stroke)
     ]
 
-    #place(top + left, dx: 71.65mm, dy: 143.43mm)[
+    #place(top + left, dx: 71.65mm, dy: 143.53mm)[
       #box(width: 16.93mm, align(center)[
         #text(font: fonts.song, size: size.小四)[（学号）]
       ])
     ]
 
-    // 指导教师（两根线，支持双导师分行居中）
-    #place(top + left, dx: 18.51mm, dy: 158.83mm)[
+    #place(top + left, dx: 18.51mm, dy: info-start + info-row-gap * 0)[
       #set text(font: fonts.song, size: size.四号)
       #cn-fakebold(text[指 导 教 师])
     ]
 
-    #place(top + left, dx: line-start, dy: 158.83mm + line-offset)[
+    #place(top + left, dx: line-start, dy: info-start + info-row-gap * 0 + line-offset)[
       #line(length: line-len, stroke: line-stroke)
     ]
 
-    #place(top + left, dx: line-start, dy: 169.65mm + line-offset)[
-      #line(length: line-len, stroke: line-stroke)
-    ]
+    #if supervisor-2.len() > 0 {
+      place(top + left, dx: line-start, dy: info-start + info-row-gap * 1 + line-offset)[
+        #line(length: line-len, stroke: line-stroke)
+      ]
+    }
 
     #let render-supervisor(items, y) = {
       let n = items.len()
@@ -201,30 +222,43 @@
       }
     }
 
-    #render-supervisor(supervisor-1, 158.83mm)
+    #render-supervisor(supervisor-1, info-start + info-row-gap * 0)
     #if supervisor-2.len() > 0 {
-      render-supervisor(supervisor-2, 169.65mm)
+      render-supervisor(supervisor-2, info-start + info-row-gap * 1)
+    }
+
+    // 信息栏正文起始位置（根据指导教师行数调整）
+    #let info-body-start = if supervisor-2.len() > 0 {
+      info-start + info-row-gap * 2
+    } else {
+      info-start + info-row-gap * 1
     }
 
     // 信息栏
-    #info-row("学 生 学 院", department, 179.76mm)
-    #info-row("专　　   业", major, 189.87mm)
-    #info-row("研 究 方 向", research-direction, 199.98mm)
+    #info-row("学 生 学 院", department, info-body-start + info-row-gap * 0)
+    #info-row(major-prefix, major, info-body-start + info-row-gap * 1)
+    #info-row("研 究 方 向", research-direction, info-body-start + info-row-gap * 2)
 
     // 提交时间
-    #place(top + left, dx: 18.51mm, dy: 209.86mm)[
+    #let submit-dy = info-body-start + info-row-gap * 3
+    #place(top + left, dx: 18.51mm, dy: submit-dy)[
       #set text(font: fonts.song, size: size.四号)
       #cn-fakebold(text[提 交 时 间])
     ]
 
-    #place(top + left, dx: line-start, dy: 209.86mm + line-offset)[
+    #place(top + left, dx: line-start, dy: submit-dy + line-offset)[
       #line(length: line-len, stroke: line-stroke)
     ]
 
-    #place(top + left, dx: line-start, dy: 209.86mm)[
+    #place(top + left, dx: line-start, dy: submit-dy)[
       #box(width: line-len, align(center)[
-        #set text(font: fonts.song, size: size.四号)
-        #cn-fakebold(date)
+        #for ch in date.clusters() {
+          if ch.match(regex("[0-9]")) != none {
+            fakebold(text(font: fonts.times, size: size.四号)[#ch])
+          } else {
+            fakebold(text(font: fonts.song, size: size.四号)[#ch])
+          }
+        }
       ])
     ]
   ]

@@ -38,6 +38,9 @@
 // 正文区逻辑宽度（160mm = 210mm - 25mm×2）
 #let content-width = 160mm
 
+// 正文起始纵向偏移（对齐《标准论文参考》P9 的“绪论”Y）
+#let main-body-start-offset = 2mm
+
 // 页眉通用样式（小五号宋体，顶部横线）
 // odd-left/odd-right 为奇数页眉左右内容
 // even-left/even-right 为偶数页眉左右内容
@@ -103,7 +106,7 @@
       )
     },
     footer: thesis-footer(numbering: "1"),
-    header-ascent: 9pt,
+    header-ascent: 14pt,
     footer-descent: -3mm,
   )
 
@@ -133,5 +136,8 @@
     fakebold(it)
   }
 
-  content
+  [
+    #v(main-body-start-offset)
+    #content
+  ]
 }
