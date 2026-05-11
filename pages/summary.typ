@@ -11,9 +11,10 @@
   keywords: (),
   lang: "zh",
 ) = {
-    set page(
+  set page(
     paper: "a4",
     margin: page-margin,
+    numbering: "I",
     header: context {
       thesis-header(
         odd-left: "毕业设计（论文）报告",
@@ -22,7 +23,7 @@
         even-right: "毕业设计（论文）报告",
       )
     },
-    footer: thesis-footer(numbering: "1"),
+    footer: thesis-footer(),
     header-ascent: 9pt,
     footer-descent: -3mm,
   )

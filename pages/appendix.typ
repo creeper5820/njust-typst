@@ -5,6 +5,7 @@
   set page(
     paper: "a4",
     margin: page-margin,
+    numbering: "1",
     header: context {
       thesis-header(
         odd-left: "毕业设计（论文）报告",
@@ -13,7 +14,7 @@
         even-right: "毕业设计（论文）报告",
       )
     },
-    footer: thesis-footer(numbering: "1"),
+    footer: thesis-footer(),
     footer-descent: -3mm,
     header-ascent: 9pt,
   )

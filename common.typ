@@ -72,13 +72,17 @@
 
 // 页脚通用样式（小五号宋体，页码置于页面外侧）
 // 模板：奇数页靠右（left≈782），偶数页靠左（left=107），top=1148（距底约27mm）
-#let thesis-footer(numbering: "1") = {
+#let thesis-footer(numbering: none) = {
   set text(font: fonts.song, size: size.小五)
   context {
     let pg = counter(page).get().first()
     let is-odd = calc.odd(pg)
     align(if is-odd { right } else { left })[
-      #counter(page).display(numbering)
+      #if numbering == none {
+        counter(page).display()
+      } else {
+        counter(page).display(numbering)
+      }
     ]
   }
 }
@@ -96,6 +100,7 @@
   set page(
     paper: "a4",
     margin: page-margin,
+    numbering: "1",
     header: context {
       let title = thesis-title-state.get()
       thesis-header(
@@ -105,7 +110,7 @@
         even-right: "毕业设计（论文）报告",
       )
     },
-    footer: thesis-footer(numbering: "1"),
+    footer: thesis-footer(),
     header-ascent: 14pt,
     footer-descent: -3mm,
   )

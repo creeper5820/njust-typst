@@ -10,16 +10,20 @@
   set page(
     paper: "a4",
     margin: page-margin,
+    numbering: "I",
     header: context thesis-header(
       odd-left: "毕业设计（论文）报告",
       odd-right: thesis-title-state.get(),
       even-left: "图表目录",
       even-right: "毕业设计（论文）报告",
     ),
-    footer: thesis-footer(numbering: "1"),
+    footer: thesis-footer(),
     header-ascent: 9pt,
     footer-descent: -3mm,
   )
+
+  show heading.where(level: 1, numbering: none): none
+  heading(level: 1, numbering: none, outlined: true)[图表目录]
 
   v(10mm)
 
