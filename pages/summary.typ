@@ -2,7 +2,7 @@
 // 附件2.6：英文摘要
 // 调用时通过 lang 切换语言
 
-#import "../common.typ": fonts, page-margin, size, thesis-header, thesis-footer, thesis-title-state
+#import "../common.typ": fonts, page-margin, size, thesis-footer, thesis-header, thesis-title-state
 #import "@preview/cuti:0.4.0": cn-fakebold, fakebold
 
 #let summary(
@@ -50,7 +50,7 @@
       #cn-fakebold(text(title))
     ]
 
-    body
+    text(font: (fonts.times, fonts.song))[#body]
 
     v(13mm)
 
@@ -74,7 +74,7 @@
     v(13mm)
 
     par(first-line-indent: (amount: 0em, all: false), leading: 12pt)[
-      #set text(font: fonts.times, size: size.五号)
+      #set text(font: fonts.times, size: size.四号)
       #fakebold(text("Keywords:"))
       #set text(font: fonts.times, size: size.小四)
       #(sym.space.thin + keywords.join(", "))

@@ -3,6 +3,38 @@
 // 全局论文题目 state（main.typ 中设置一次，各页面函数通过 context 读取）
 #let thesis-title-state = state("thesis-title", "")
 
+#let chapter-figure-numbering(kind) = n => {
+  let loc = here()
+  let chapter = counter(heading.where(level: 1)).at(loc).first()
+  numbering("1.1", chapter, n)
+}
+
+#let chapter-equation-numbering(n) = {
+  let loc = here()
+  let chapter = counter(heading.where(level: 1)).at(loc).first()
+  numbering("（1.1）", chapter, n)
+}
+
+#let njust-image(path, caption, width: 50%) = figure(
+  image(path, width: width),
+  caption: caption,
+)
+
+#let njust-table(col-widths, col-align, caption, header, rows, ..body) = figure(
+  align(center)[#table(
+    columns: col-widths,
+    align: col-align,
+    stroke: none,
+    table.hline(y: 0, stroke: 0.8pt),
+    table.header(..header),
+    table.hline(y: 1, stroke: 0.5pt),
+    ..body.pos(),
+    table.hline(y: rows + 1, stroke: 0.8pt),
+  )],
+  kind: table,
+  caption: caption,
+)
+
 // 范文字体
 #let fonts = (
   song: "SimSun",
@@ -37,9 +69,6 @@
 
 // 正文区逻辑宽度（160mm = 210mm - 25mm×2）
 #let content-width = 160mm
-
-// 正文起始纵向偏移（对齐《标准论文参考》P9 的“绪论”Y）
-#let main-body-start-offset = 2mm
 
 // 页眉通用样式（小五号宋体，顶部横线）
 // odd-left/odd-right 为奇数页眉左右内容
@@ -123,26 +152,56 @@
     spacing: 12pt,
   )
 
+  show figure.where(kind: image): set figure(
+    supplement: [图],
+    numbering: chapter-figure-numbering("image"),
+  )
+  show figure.where(kind: image): set figure.caption(separator: [ ])
+
+  show figure.where(kind: table): set figure(
+    supplement: [表],
+    numbering: chapter-figure-numbering("table"),
+  )
+  show figure.where(kind: table): set figure.caption(position: top, separator: [ ])
+
+  show math.equation.where(block: true): set math.equation(
+    supplement: [式],
+    numbering: chapter-equation-numbering,
+  )
+  show math.equation.where(block: true): it => context block(
+    width: 100%,
+    above: 12pt,
+    below: 12pt,
+  )[
+    #place(right + horizon)[
+      #counter(math.equation.where(block: true)).display(it.numbering)
+    ]
+    #align(center)[#it.body]
+  ]
+
   show heading.where(level: 1): it => {
-    set text(font: fonts.song, size: size.小三)
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(math.equation.where(block: true)).update(0)
+    colbreak(weak: true)
+    set text(font: (fonts.times, fonts.song), size: size.小三)
     set block(above: 30pt, below: 30pt)
-    fakebold(it)
+    cn-fakebold(it)
   }
 
   show heading.where(level: 2): it => {
-    set text(font: fonts.song, size: size.四号)
+    set text(font: (fonts.times, fonts.song), size: size.四号)
     set block(above: 20pt, below: 24pt)
-    fakebold(it)
+    cn-fakebold(it)
   }
 
   show heading.where(level: 3): it => {
-    set text(font: fonts.song, size: size.小四)
+    set text(font: (fonts.times, fonts.song), size: size.小四)
     set block(above: 12pt, below: 12pt)
-    fakebold(it)
+    cn-fakebold(it)
   }
 
-  [
-    #v(main-body-start-offset)
+  block(inset: (top: 2mm, bottom: 5mm))[
     #content
   ]
 }

@@ -3,10 +3,7 @@
 #import "../common.typ": content-width, fonts, page-margin, size, thesis-footer, thesis-header, thesis-title-state
 #import "@preview/cuti:0.4.0": cn-fakebold
 
-#let charts(
-  figures: none,
-  tables: none,
-) = {
+#let charts() = {
   set page(
     paper: "a4",
     margin: page-margin,
@@ -25,6 +22,16 @@
   show heading.where(level: 1, numbering: none): none
   heading(level: 1, numbering: none, outlined: true)[图表目录]
 
+  set text(font: fonts.song, size: size.小四, lang: "zh")
+  set par(leading: 20pt)
+  set outline.entry(fill: repeat([.], gap: 0.15em))
+
+  show outline.entry: it => {
+    set block(above: 3mm, below: 0pt)
+    set text(font: (fonts.times, fonts.song), size: size.小四)
+    it
+  }
+
   v(10mm)
 
   // 标题：3号宋体加粗，居中
@@ -33,20 +40,7 @@
     #cn-fakebold[图表目录]
   ]
 
-  v(1em)
+  v(6mm)
 
-  // 正文：小4号宋体，行距20磅
-  set text(font: fonts.song, size: size.小四)
-  set par(leading: 20pt, justify: true)
-
-  if figures != none {
-    figures
-  }
-
-  if tables != none {
-    if figures != none {
-      v(1em)
-    }
-    tables
-  }
+  outline(title: none, target: figure, indent: 0mm)
 }

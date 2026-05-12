@@ -27,22 +27,28 @@
   // 标题 "附    录"：三号宋体加粗，段前段后各 18 磅，居中
   v(10mm)
   align(center)[
-    #set text(font: fonts.song, size: size.三号)
+    #set text(font: (fonts.times, fonts.song), size: size.三号)
     #cn-fakebold[附　　录]
   ]
   v(18pt)
 
-  // 子标题：四号宋体加粗，行距 20 磅（不出现在目录中）
+  // 子标题：与正文二级标题保持一致（不出现在目录中）
   set heading(outlined: false)
   show heading.where(level: 2): it => {
-    set text(font: fonts.song, size: size.四号)
+    set text(font: (fonts.times, fonts.song), size: size.四号)
+    set par(first-line-indent: 0em)
+    set block(above: 20pt, below: 24pt)
     cn-fakebold(it.body)
-    v(20pt - size.四号)
   }
 
-  // 正文：小四号宋体，行距 20 磅，两端对齐
-  set text(font: fonts.song, size: size.小四)
-  set par(leading: 20pt, justify: true)
+  // 正文：小四号宋体，行距与正文保持一致，两端对齐
+  set text(font: (fonts.times, fonts.song), size: size.小四)
+  set par(
+    leading: 12pt,
+    spacing: 12pt,
+    justify: true,
+    first-line-indent: (amount: 2em, all: true),
+  )
 
   body
 }
