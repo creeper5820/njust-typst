@@ -180,7 +180,7 @@
     // 学号
     #place(top + left, dx: 70.01mm, dy: 135.53mm)[
       #box(width: 19.52mm, align(center)[
-        #fakebold(text(font: fonts.kai, size: size.小二)[#student-number])
+        #cn-fakebold(text(font: fonts.kai, size: size.小二)[#student-number])
       ])
     ]
 
