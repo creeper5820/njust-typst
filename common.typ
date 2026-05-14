@@ -88,7 +88,7 @@
     let l = if is-odd { odd-left } else { even-left }
     let r = if is-odd { odd-right } else { even-right }
 
-    set text(font: fonts.song, size: size.小五)
+    set text(font: (fonts.times, fonts.song), size: size.小五)
     grid(
       columns: (auto, 1fr),
       align: (left, right),

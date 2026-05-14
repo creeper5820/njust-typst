@@ -32,6 +32,7 @@
   let toc-title = if lang == "zh" { "摘    要" } else { "Abstract" }
   // 目录条目（隐藏渲染，保留 outline 条目）
   show heading.where(level: 1, numbering: none): none
+
   let toc-heading = if lang == "zh" { "摘\u{3000}\u{3000}要" } else { "Abstract" }
   heading(level: 1, numbering: none, outlined: true)[#toc-heading]
 
@@ -41,41 +42,29 @@
     title = toc-title
   }
 
+  set par(first-line-indent: (amount: 2em, all: true), leading: 12pt, justify: true)
+  set text(font: (fonts.times, fonts.song), size: size.小四)
+
+  align(center)[
+    #set text(font: (fonts.times, fonts.song), size: size.三号)
+    #cn-fakebold(text(title))
+  ]
+
+  text(font: (fonts.times, fonts.song))[#body]
+
+  v(13mm)
+
+  set text(font: (fonts.times, fonts.song), size: size.四号)
+
   if lang == "zh" {
-    set par(first-line-indent: (amount: 2em, all: true), leading: 12pt)
-    set text(font: fonts.song, size: size.小四)
-
-    align(center)[
-      #set text(font: fonts.song, size: size.三号)
-      #cn-fakebold(text(title))
-    ]
-
-    text(font: (fonts.times, fonts.song))[#body]
-
-    v(13mm)
-
     par(first-line-indent: (amount: 0em, all: false), leading: 12pt)[
-      #set text(font: fonts.song, size: size.四号)
       #cn-fakebold(text("关键词："))
       #set text(font: fonts.song, size: size.小四)
       #(keywords.join("，"))
     ]
   } else {
-    set par(first-line-indent: (amount: 2em, all: true), leading: 12pt)
-    set text(font: fonts.times, size: size.小四)
-
-    align(center)[
-      #set text(font: fonts.times, size: size.三号)
-      #fakebold(text(title))
-    ]
-
-    body
-
-    v(13mm)
-
     par(first-line-indent: (amount: 0em, all: false), leading: 12pt)[
-      #set text(font: fonts.times, size: size.四号)
-      #fakebold(text("Keywords:"))
+      #fakebold(text("Keywords: "))
       #set text(font: fonts.times, size: size.小四)
       #(sym.space.thin + keywords.join(", "))
     ]
