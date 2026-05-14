@@ -2,6 +2,7 @@
 
 // 全局论文题目 state（main.typ 中设置一次，各页面函数通过 context 读取）
 #let thesis-title-state = state("thesis-title", "")
+#let current-chapter-state = state("current-chapter", [])
 
 #let chapter-figure-numbering(kind) = n => {
   let loc = here()
@@ -132,10 +133,11 @@
     numbering: "1",
     header: context {
       let title = thesis-title-state.get()
+      let chapter = current-chapter-state.get()
       thesis-header(
         odd-left: "毕业设计（论文）报告",
         odd-right: title,
-        even-left: "",
+        even-left: chapter,
         even-right: "毕业设计（论文）报告",
       )
     },
@@ -180,6 +182,8 @@
   ]
 
   show heading.where(level: 1): it => {
+    let chapter = [#counter(heading.where(level: 1)).display("1") #it.body]
+    current-chapter-state.update(chapter)
     counter(figure.where(kind: image)).update(0)
     counter(figure.where(kind: table)).update(0)
     counter(math.equation.where(block: true)).update(0)
