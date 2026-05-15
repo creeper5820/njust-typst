@@ -47,7 +47,7 @@
 
   align(center)[
     #set text(font: (fonts.times, fonts.song), size: size.三号)
-    #cn-fakebold(text(title))
+    #fakebold(text(title))
   ]
 
   text(font: (fonts.times, fonts.song))[#body]

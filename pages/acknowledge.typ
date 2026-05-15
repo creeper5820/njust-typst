@@ -1,6 +1,6 @@
 // 附件2.10：致谢
 
-#import "../common.typ": content-width, fonts, page-margin, size, thesis-header, thesis-footer, thesis-title-state
+#import "../common.typ": content-width, fonts, page-margin, size, thesis-footer, thesis-header, thesis-title-state
 #import "@preview/cuti:0.4.0": cn-fakebold
 
 #let acknowledge(body) = {
@@ -28,14 +28,14 @@
   // 标题：3号宋体加粗，居中
   v(10mm)
   align(center)[
-    #set text(font: fonts.song, size: size.三号)
+    #set text(font: (fonts.times, fonts.song), size: size.三号)
     #cn-fakebold[致    谢]
   ]
 
   v(8pt)
 
   // 正文：小4号宋体，行距20磅，两端对齐
-  set text(font: fonts.song, size: size.小四)
+  set text(font: (fonts.times, fonts.song), size: size.小四)
   set par(leading: 12pt, justify: true, first-line-indent: 2em)
 
   body

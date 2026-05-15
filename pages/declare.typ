@@ -5,7 +5,7 @@
 
 #let signature-row() = box(width: content-width, height: 1em)[
   #place(top + left, dx: 0mm, dy: 0mm)[
-    学生签名：#box(width: 6em, line(length: 6em))
+    学生签名：#box(width: 6em, line(length: 7em))
   ]
 
   #place(top + left, dx: signature-date-dx, dy: 0mm)[
@@ -24,6 +24,8 @@
   set text(font: fonts.song, size: size.四号)
   set par(justify: true, leading: 20pt, first-line-indent: 2em)
 
+  v(2em)
+
   // ── 声明 ──
   align(center)[
     #cn-fakebold(text(size: size.三号)[声　　明])
@@ -38,9 +40,9 @@
   v(2em)
 
   [#set par(first-line-indent: 0em)
-  #signature-row()]
+    #signature-row()]
 
-  v(2cm)
+  v(4cm)
 
   // ── 使用授权声明 ──
   align(center)[
@@ -54,5 +56,5 @@
   v(2em)
 
   [#set par(first-line-indent: 0em)
-  #signature-row()]
+    #signature-row()]
 }
