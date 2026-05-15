@@ -154,6 +154,8 @@
     spacing: 12pt,
   )
 
+  show figure.caption: set text(font: (fonts.times, fonts.song), size: size.五号)
+
   show figure.where(kind: image): set figure(
     supplement: [图],
     numbering: chapter-figure-numbering("image"),
