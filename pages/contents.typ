@@ -17,35 +17,37 @@
     footer-descent: -3mm,
   )
 
-  show heading.where(level: 1, numbering: none): none
-  heading(level: 1, numbering: none, outlined: true)[目\u{3000}\u{3000}录]
+  block(inset: (top: 2mm, bottom: 8mm))[
+    #show heading.where(level: 1, numbering: none): none
+    #heading(level: 1, numbering: none, outlined: true)[目　　录]
 
-  set text(font: fonts.song, size: size.小四, lang: "zh")
-  set par(leading: 20pt)
-  set outline.entry(fill: repeat([.], gap: 0.15em))
+    #set text(font: fonts.song, size: size.小四, lang: "zh")
+    #set par(leading: 20pt)
+    #set outline.entry(fill: repeat([.], gap: 0.15em))
 
-  show outline.entry: it => {
-    set block(above: 3mm, below: 0pt)
-    if it.level == 1 {
-      set text(font: (fonts.times, fonts.song), size: size.四号, weight: "bold")
-      cn-fakebold(it)
-    } else if it.level == 2 {
-      set text(font: (fonts.times, fonts.song), size: size.小四)
-      pad(left: 8mm, it)
-    } else {
-      set text(font: (fonts.times, fonts.song), size: size.小四)
-      pad(left: 14mm, it)
+    #show outline.entry: it => {
+      set block(above: 3mm, below: 0pt)
+      if it.level == 1 {
+        set text(font: (fonts.times, fonts.song), size: size.四号, weight: "bold")
+        cn-fakebold(it)
+      } else if it.level == 2 {
+        set text(font: (fonts.times, fonts.song), size: size.小四)
+        pad(left: 8mm, it)
+      } else {
+        set text(font: (fonts.times, fonts.song), size: size.小四)
+        pad(left: 14mm, it)
+      }
     }
-  }
 
-  v(10mm)
+    #v(10mm)
 
-  align(center)[
-    #set text(size: size.三号)
-    #cn-fakebold(text[目　　录])
+    #align(center)[
+      #set text(size: size.三号)
+      #cn-fakebold(text[目　　录])
+    ]
+
+    #v(6mm)
+
+    #body
   ]
-
-  v(6mm)
-
-  body
 }
