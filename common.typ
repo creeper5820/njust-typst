@@ -1,5 +1,28 @@
 #import "@preview/cuti:0.4.0": cn-fakebold, fakebold
 
+// 范文字体
+#let fonts = (
+  song: "SimSun",
+  hei: "SimHei",
+  times: "Times New Roman",
+  kai: "KaiTi",
+)
+// 中文字号 → pt 映射
+#let size = (
+  初号: 42pt,
+  小初: 36pt,
+  一号: 26pt,
+  小一: 24pt,
+  二号: 22pt,
+  小二: 18pt,
+  三号: 16pt,
+  小三: 15pt,
+  四号: 14pt,
+  小四: 12pt,
+  五号: 10.5pt,
+  小五: 9pt,
+)
+
 // 全局论文题目 state（main.typ 中设置一次，各页面函数通过 context 读取）
 #let thesis-title-state = state("thesis-title", "")
 #let current-chapter-state = state("current-chapter", [])
@@ -22,42 +45,21 @@
 )
 
 #let njust-table(col-widths, col-align, caption, header, rows, ..body) = figure(
-  align(center)[#table(
-    columns: col-widths,
-    align: col-align,
-    stroke: none,
-    table.hline(y: 0, stroke: 0.8pt),
-    table.header(..header),
-    table.hline(y: 1, stroke: 0.5pt),
-    ..body.pos(),
-    table.hline(y: rows + 1, stroke: 0.8pt),
-  )],
+  align(center)[
+    #set text(font: (fonts.times, fonts.song), size: size.五号)
+    #table(
+      columns: col-widths,
+      align: col-align,
+      stroke: none,
+      table.hline(y: 0, stroke: 0.8pt),
+      table.header(..header),
+      table.hline(y: 1, stroke: 0.5pt),
+      ..body.pos(),
+      table.hline(y: rows + 1, stroke: 0.8pt),
+    )
+  ],
   kind: table,
   caption: caption,
-)
-
-// 范文字体
-#let fonts = (
-  song: "SimSun",
-  hei: "SimHei",
-  times: "Times New Roman",
-  kai: "KaiTi",
-)
-
-// 中文字号 → pt 映射
-#let size = (
-  初号: 42pt,
-  小初: 36pt,
-  一号: 26pt,
-  小一: 24pt,
-  二号: 22pt,
-  小二: 18pt,
-  三号: 16pt,
-  小三: 15pt,
-  四号: 14pt,
-  小四: 12pt,
-  五号: 10.5pt,
-  小五: 9pt,
 )
 
 // 页面边距（封面通用）

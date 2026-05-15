@@ -1,13 +1,14 @@
 #import "../../common.typ": content-width, fonts, page-margin, size
 
-#let split-supervisor(s) = {
-  if s.contains(". ") {
-    let parts = s.split(". ")
-    let name = parts.pop()
-    let prefix = parts.join(". ") + ". "
-    (prefix, name)
-  } else {
+#let normalize-supervisor(s) = {
+  if type(s) == str {
     ("", s)
+  } else if s.len() >= 2 {
+    (s.at(0), s.at(1))
+  } else if s.len() == 1 {
+    ("", s.at(0))
+  } else {
+    ("", "")
   }
 }
 
@@ -97,16 +98,25 @@
     ]
 
     // 指导教师（18pt TNR italic）
-    #let (sup1-prefix, sup1-name) = split-supervisor(supervisor-1)
+    #let (sup1-prefix, sup1-name) = normalize-supervisor(supervisor-1)
+    #let (sup2-prefix, sup2-name) = normalize-supervisor(supervisor-2)
     #place(top + left, dx: 0mm, dy: 123mm)[
-      #box(width: content-width + 10mm, align(center)[
-        #text(font: fonts.times, size: size.小二, style: "italic")[Supervised by #sup1-prefix]
-        #text(font: fonts.times, size: size.小二, style: "italic", weight: "bold")[#sup1-name]
-        #if supervisor-2 != "" {
-          text(font: fonts.times, size: size.小二, style: "italic")[ & ]
-          text(font: fonts.times, size: size.小二, style: "italic", weight: "bold")[#supervisor-2]
-        }
-      ])
+      #box(width: content-width + 10mm)[
+        #align(center)[
+          #text(font: fonts.times, size: size.小二, style: "italic")[Supervised by ]
+          #if sup1-prefix != "" [
+            #text(font: fonts.times, size: size.小二, style: "italic")[#sup1-prefix ]
+          ]
+          #text(font: fonts.times, size: size.小二, style: "italic", weight: "bold")[#sup1-name]
+          #if sup2-name != "" [
+            #text(font: fonts.times, size: size.小二, style: "italic")[ & ]
+            #if sup2-prefix != "" [
+              #text(font: fonts.times, size: size.小二, style: "italic")[#sup2-prefix ]
+            ]
+            #text(font: fonts.times, size: size.小二, style: "italic", weight: "bold")[#sup2-name]
+          ]
+        ]
+      ]
     ]
 
     // 校名（18pt TNR）
