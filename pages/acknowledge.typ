@@ -29,7 +29,7 @@
   v(10mm)
   align(center)[
     #set text(font: (fonts.times, fonts.song), size: size.三号)
-    #cn-fakebold[致    谢]
+    #cn-fakebold[致　　谢]
   ]
 
   v(8pt)
