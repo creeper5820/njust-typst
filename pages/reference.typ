@@ -2,8 +2,13 @@
 
 #import "../common.typ": content-width, fonts, page-margin, size, thesis-header, thesis-footer, thesis-title-state
 #import "@preview/cuti:0.4.0": cn-fakebold
+#import "@preview/modern-nju-thesis:0.4.1": bilingual-bibliography
 
-#let reference(body) = {
+#let reference-bibliography(rendered-bibliography) = {
+  bilingual-bibliography(bibliography: rendered-bibliography)
+}
+
+#let reference(source, style: "gb-7714-2015-numeric", title: none, full: false) = {
   set page(
     paper: "a4",
     margin: page-margin,
@@ -40,5 +45,7 @@
   set text(font: (fonts.times, fonts.song), size: size.小四)
   set par(justify: true, leading: 12pt, spacing: 12pt)
 
-  body
+  reference-bibliography(
+    bibliography.with(source, style: style, title: title, full: full),
+  )
 }

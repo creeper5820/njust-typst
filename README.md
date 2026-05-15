@@ -19,6 +19,8 @@
 TYPST_FONT_PATHS=./njust-typst/assets typst compile main.typ
 ```
 
+说明：若使用模板内置的双语参考文献修复功能，请确保 Typst 可以拉取 Universe 依赖。
+
 ### Neovim 用户
 
 在项目根目录创建 `.nvim.lua`：
@@ -202,10 +204,31 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 ### 11. 参考文献
 
 ```typst
-#njust.reference[
-  #bibliography("ref.bib", style: "ieee", title: none)
-]
+#njust.reference(read("ref.bib", encoding: none))
 ```
+
+默认样式为 `gb-7714-2015-numeric`，并内置中英双语作者省略修复：
+- 中文文献显示 `等`
+- 英文文献显示 `et al.`
+
+说明：
+- 这里推荐传入 `read("ref.bib", encoding: none)` 的结果，而不是直接传字符串路径。
+- 原因是 Typst 在模板函数内部解析路径时，会相对模板文件目录而不是调用方文件目录解析。
+
+如需自定义样式、标题或 `full` 参数，可直接给 `njust.reference` 传命名参数：
+
+```typst
+#njust.reference(
+  read("ref.bib", encoding: none),
+  style: "gb-7714-2015-numeric",
+  title: none,
+  full: false,
+)
+```
+
+其中：
+- `njust.reference(...)` 负责参考文献页版式，并内置调用双语参考文献修复
+- `njust.bibliography(...)` 是模板额外导出的低层包装器，适合单独复用双语修复逻辑时使用
 
 ### 12. 附录
 
@@ -235,3 +258,4 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 ## 依赖
 
 - [`@preview/cuti:0.4.0`](https://typst.app/universe/package/cuti/) — 伪粗体（`cn-fakebold`、`fakebold`）
+- [`@preview/modern-nju-thesis:0.4.1`](https://typst.app/universe/package/modern-nju-thesis/) — 双语参考文献修复（`bilingual-bibliography`）
