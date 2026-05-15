@@ -1,4 +1,4 @@
-#import "../common.typ": content-width, fonts, page-margin, size, thesis-header, thesis-footer, thesis-title-state
+#import "../common.typ": content-width, fonts, page-margin, size, thesis-footer, thesis-header, thesis-title-state
 #import "@preview/cuti:0.4.0": cn-fakebold
 
 #let appendix(body) = {
@@ -16,7 +16,7 @@
     },
     footer: thesis-footer(),
     footer-descent: -3mm,
-    header-ascent: 9pt,
+    header-ascent: 14pt,
   )
 
   // 目录条目

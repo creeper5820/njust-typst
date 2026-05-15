@@ -15,7 +15,7 @@
       even-right: "毕业设计（论文）报告",
     ),
     footer: thesis-footer(),
-    header-ascent: 9pt,
+    header-ascent: 14pt,
     footer-descent: -3mm,
   )
 
