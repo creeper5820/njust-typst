@@ -50,6 +50,7 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 │   │   ├── acknowledge.typ     # 致谢
 │   │   └── appendix.typ        # 附录
 │   ├── assets/                 # 字体文件
+│   ├── example/                # 匿名化完整示例工程
 │   └── skills/                 # 开发工具
 │       ├── pixel-verify.md     # 像素级校验流程
 │       └── njust-template.pdf  # 官方模板 PDF
@@ -214,6 +215,8 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 说明：
 - 这里推荐传入 `read("ref.bib", encoding: none)` 的结果，而不是直接传字符串路径。
 - 原因是 Typst 在模板函数内部解析路径时，会相对模板文件目录而不是调用方文件目录解析。
+- 若正文中没有任何引用，默认不会输出未被引用的文献条目；如需强制列出全部文献，可使用 `full: true`。
+- 模板已处理参考文献页的标题与目录条目，目录中不会重复出现两条“参考文献”。
 
 如需自定义样式、标题或 `full` 参数，可直接给 `njust.reference` 传命名参数：
 
@@ -229,6 +232,17 @@ vim.env.TYPST_FONT_PATHS = vim.fn.fnamemodify("njust-typst/assets", ":p")
 其中：
 - `njust.reference(...)` 负责参考文献页版式，并内置调用双语参考文献修复
 - `njust.bibliography(...)` 是模板额外导出的低层包装器，适合单独复用双语修复逻辑时使用
+
+例如，强制输出全部参考文献：
+
+```typst
+#njust.reference(
+  read("ref.bib", encoding: none),
+  full: true,
+)
+```
+
+如需一个完整、匿名化且可直接编译的论文示例，可参考 `njust/example/`。
 
 ### 12. 附录
 
